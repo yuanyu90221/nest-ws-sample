@@ -17,8 +17,18 @@ export class ChatGateway implements OnGatewayInit {
   @SubscribeMessage('chatToServer')
   handleMessage(
     client: Socket,
-    message: { sender: string; message: string },
+    message: { sender: string; room: string; message: string },
   ): void {
-    this.wss.emit('chatToClient', message);
+    this.wss.to(message.room).emit('chatToClient', message);
+  }
+  @SubscribeMessage('joinRoom')
+  handleJoinRoom(client: Socket, room: string) {
+    client.join(room);
+    client.emit('joinedRoom', room);
+  }
+  @SubscribeMessage('leaveRoom')
+  handleLeaveRoom(client: Socket, room: string) {
+    client.leave(room);
+    client.emit('leftRoom', room);
   }
 }

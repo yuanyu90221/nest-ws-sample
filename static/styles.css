@@ -10,11 +10,11 @@ section.alerts {
   grid-area: alerts;
 }
 
-/* .tab-row {
+.tab-row {
   padding-top: 20px;
 }
 
 .tab-btn.active {
   background: blue;
   color: white;
-} */
+}
